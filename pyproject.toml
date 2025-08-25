@@ -1,0 +1,22 @@
+[project]
+name = "resume-analysis"
+authors = [
+    {name = "erichung9060", email = "rthung96@gmail.com"},
+    {name = "boyan1001", email = "cby931001@gmail.com"}
+]
+version = "0.1.0"
+description = "A web application can analyze resumes and provide feedback by Gemini AI."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dotenv>=0.9.9",
+    "edge-tts>=7.2.1",
+    "ffmpeg-python>=0.2.0",
+    "flask>=3.1.2",
+    "flask-cors>=6.0.1",
+    "google-generativeai>=0.8.5",
+    "gtts>=2.5.4",
+    "jwt>=1.4.0",
+    "pydub>=0.25.1",
+    "speechrecognition>=3.14.3",
+]
