@@ -1,0 +1,31 @@
+# General
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+
+# Git / IDE
+.git
+.gitignore
+.vscode/
+.idea/
+
+# Python
+dist/
+build/
+.cache/
+.mypy_cache/
+.pytest_cache/
+
+.env
+.env.*
+
+# frontend
+frontend/node_modules
+frontend/.next
+frontend/.turbo
+frontend/dist
+frontend/.cache
+
+**/node_modules
