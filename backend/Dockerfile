@@ -1,6 +1,8 @@
 FROM python:3.12-slim
 
-# 讓容器內預設走專案的 venv
+MAINTAINER boyan1001(cby931001@gmail.com)
+
+# venv
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     UV_PYTHON_PREFERENCE=only-managed \
@@ -27,6 +29,6 @@ ENV PATH="/app/.venv/bin:$PATH"
 
 COPY backend/ /app/
 
-EXPOSE 8000
+EXPOSE 3001
 
-CMD ["gunicorn", "app:app", "-b", "0.0.0.0:8000", "-w", "2", "-k", "gthread", "--threads", "8", "--timeout", "120"]
+CMD ["gunicorn", "app:app", "-b", "0.0.0.0:3001", "-w", "2", "-k", "gthread", "--threads", "8", "--timeout", "120"]
