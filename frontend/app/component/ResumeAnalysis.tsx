@@ -94,7 +94,8 @@ export default function ResumeAnalysis() {
       // For now, we'll simulate an API call.
 
       const response = await fetch(
-        "http://192.168.69.26:3001/upload_imformation",
+        // "http://192.168.69.26:3001/upload_imformation",
+        "http://localhost:3001/upload_imformation",
         {
           method: "POST",
           body: formData,
