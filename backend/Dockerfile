@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-COPY pyproject.toml uv.lock /app/
+COPY pyproject.toml uv.lock ./
 
 # install uv
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh \
@@ -27,7 +27,7 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | sh \
 
 ENV PATH="/app/.venv/bin:$PATH"
 
-COPY backend/ /app/
+COPY . /app/
 
 EXPOSE 3001
 

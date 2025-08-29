@@ -1,8 +1,8 @@
 services:
   backend:
     build:
-      context: .
-      dockerfile: backend/Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: resume-backend
     ports:
       - "3001:3001"
@@ -10,22 +10,22 @@ services:
       FLASK_ENV: production
       GOOGLE_API_KEY: ${GOOGLE_API_KEY}
     networks:
-      - resume-net
+      - resume-network
 
   frontend:
     build:
       context: .
       dockerfile: frontend/Dockerfile
-      args:
-        NEXT_PUBLIC_API_BASE: "http://backend:3001"
     container_name: resume-frontend
     ports:
       - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_BASE: http://backend:3001
     depends_on:
       - backend
     networks:
-      - resume-net
+      - resume-network
 
 networks:
-  resume-net:
+  resume-network:
     driver: bridge
