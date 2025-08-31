@@ -4,6 +4,8 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { getAuth } from "firebase/auth";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
+
 interface InterviewHistory {
   session_id: string;
   test_topic: string;
@@ -86,7 +88,7 @@ export default function MockInterview() {
     try {
       const token = await auth.currentUser?.getIdToken();
       const response = await fetch(
-        `http://${window.location.hostname}:3001/interview_history`,
+        `${API_BASE_URL}/interview_history`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -133,7 +135,7 @@ export default function MockInterview() {
         formData.append("end_interview", "false");
 
         const response = await fetch(
-          `http://${window.location.hostname}:3001/interview`,
+          `${API_BASE_URL}/interview`,
           {
             method: "POST",
             body: formData,
@@ -215,7 +217,7 @@ export default function MockInterview() {
           try {
             const token = await auth.currentUser?.getIdToken();
             const response = await fetch(
-              `http://${window.location.hostname}:3001/interview`,
+              `${API_BASE_URL}/interview`,
               {
                 method: "POST",
                 body: formData,
@@ -295,7 +297,7 @@ export default function MockInterview() {
 
       const token = await auth.currentUser?.getIdToken();
       const response = await fetch(
-        `http://${window.location.hostname}:3001/interview`,
+        `${API_BASE_URL}/interview`,
         {
           method: "POST",
           body: formData,

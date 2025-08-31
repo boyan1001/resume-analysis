@@ -6,10 +6,24 @@ from mock_interview import get_user_history
 from resume_anlayze import gemini_resume_anlayze
 
 app = Flask(__name__)
-CORS(app, origins="*", supports_credentials=True)
 
+allow = os.getenv("ALLOW_ORIGINS",  "").split(",") if os.getenv("ALLOW_ORIGINS", "") else []
+allow.append("http://localhost:3000")
+
+CORS(
+    app,
+    resources={r"/*": {"origins": allow or "*"}},  # 或者列出特定路徑
+    supports_credentials=True,
+    methods=["GET","POST","PUT","DELETE","OPTIONS"],
+    allow_headers=["Content-Type","Authorization","X-Requested-With"],
+    max_age=86400,
+)
 # Create output directory for audio files
 os.makedirs('./output', exist_ok=True)
+
+@app.get("/healthz")
+def healthz():
+    return "ok", 200
 
 # Serve static files from the output directory
 @app.route('/output/<path:filename>')

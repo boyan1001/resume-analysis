@@ -13,6 +13,8 @@ import {
   Legend,
 } from "chart.js";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
+
 Chart.register(
   RadialLinearScale,
   PointElement,
@@ -95,7 +97,7 @@ export default function ResumeAnalysis() {
 
       const response = await fetch(
         // "http://192.168.69.26:3001/upload_imformation",
-        "http://localhost:3001/upload_imformation",
+        `${API_BASE_URL}/upload_imformation`,
         {
           method: "POST",
           body: formData,
