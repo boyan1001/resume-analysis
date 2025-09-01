@@ -77,9 +77,8 @@ export default function MockInterview() {
         fetchInterviewHistory();
       }
     });
-
     return () => unsubscribe();
-  }, []);
+  }, [auth, fetchInterviewHistory]);
 
   // 獲取面試歷史記錄
   const fetchInterviewHistory = useCallback(async () => {
@@ -87,14 +86,11 @@ export default function MockInterview() {
 
     try {
       const token = await auth.currentUser?.getIdToken();
-      const response = await fetch(
-        `${API_BASE_URL}/interview_history`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await fetch(`${API_BASE_URL}/interview_history`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
       const data = await response.json();
       if (data.interview_history) {
         console.log("new data");
@@ -134,13 +130,10 @@ export default function MockInterview() {
         formData.append("interview_type", interviewType);
         formData.append("end_interview", "false");
 
-        const response = await fetch(
-          `${API_BASE_URL}/interview`,
-          {
-            method: "POST",
-            body: formData,
-          },
-        );
+        const response = await fetch(`${API_BASE_URL}/interview`, {
+          method: "POST",
+          body: formData,
+        });
         const data = await response.json();
 
         if (data.error) {
@@ -216,16 +209,13 @@ export default function MockInterview() {
 
           try {
             const token = await auth.currentUser?.getIdToken();
-            const response = await fetch(
-              `${API_BASE_URL}/interview`,
-              {
-                method: "POST",
-                body: formData,
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
+            const response = await fetch(`${API_BASE_URL}/interview`, {
+              method: "POST",
+              body: formData,
+              headers: {
+                Authorization: `Bearer ${token}`,
               },
-            );
+            });
             const data = await response.json();
 
             if (data.error) {
@@ -296,16 +286,13 @@ export default function MockInterview() {
       formData.append("end_interview", "true");
 
       const token = await auth.currentUser?.getIdToken();
-      const response = await fetch(
-        `${API_BASE_URL}/interview`,
-        {
-          method: "POST",
-          body: formData,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await fetch(`${API_BASE_URL}/interview`, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
       const data = await response.json();
 
       if (data.error) {
