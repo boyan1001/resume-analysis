@@ -69,17 +69,6 @@ export default function MockInterview() {
     setShowDropdown(false);
   };
 
-  // 檢查用戶登入狀態
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setIsAuthenticated(!!user);
-      if (user) {
-        fetchInterviewHistory();
-      }
-    });
-    return () => unsubscribe();
-  }, [auth, fetchInterviewHistory]);
-
   // 獲取面試歷史記錄
   const fetchInterviewHistory = useCallback(async () => {
     if (!auth.currentUser) return;
@@ -100,6 +89,17 @@ export default function MockInterview() {
       console.error("Error fetching interview history:", error);
     }
   }, [auth]);
+
+  // 檢查用戶登入狀態
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsAuthenticated(!!user);
+      if (user) {
+        fetchInterviewHistory();
+      }
+    });
+    return () => unsubscribe();
+  }, [auth, fetchInterviewHistory]);
 
   useEffect(() => {
     if (currentStep === "interview") {
