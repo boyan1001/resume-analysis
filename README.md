@@ -18,7 +18,7 @@ erichung9060 : Project Manager / Back-end / General Codes / mock interview / Gem
 
 weng__0721 : Front-end / mock interview interface design
 
-boyan1001 : Back-end / resume analysis pipeline design / Gemini api / prompt engineering  
+boyan1001 : Back-end / resume analysis pipeline design / Gemini api / prompt engineering / Deploy  
 
 noyapoyo : Front-end / resume analysis interface design
 ```
