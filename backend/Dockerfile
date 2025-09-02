@@ -1,4 +1,8 @@
-FROM python:3.12-slim
+FROM python:3.11-slim
+
+# Add DNS configuration to resolve network issues
+RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf && \
+    echo "nameserver 8.8.4.4" >> /etc/resolv.conf
 
 # 取代舊的 MAINTAINER
 LABEL maintainer="boyan1001 <cby931001@gmail.com>"

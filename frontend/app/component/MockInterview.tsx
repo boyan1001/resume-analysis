@@ -2,9 +2,11 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { getAuth } from "firebase/auth";
+import { auth } from "../../lib/firebase";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
+// if have env set NEXT_PUBLIC_API_BASE_URL, use it, otherwise use default localhost
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001";
 
 interface InterviewHistory {
   session_id: string;
@@ -14,8 +16,6 @@ interface InterviewHistory {
 }
 
 export default function MockInterview() {
-  const auth = getAuth();
-
   const [currentStep, setCurrentStep] = useState<"input" | "interview">(
     "input",
   );
@@ -71,7 +71,7 @@ export default function MockInterview() {
 
   // 獲取面試歷史記錄
   const fetchInterviewHistory = useCallback(async () => {
-    if (!auth.currentUser) return;
+    if (!auth?.currentUser) return;
 
     try {
       const token = await auth.currentUser?.getIdToken();
@@ -92,6 +92,11 @@ export default function MockInterview() {
 
   // 檢查用戶登入狀態
   useEffect(() => {
+    if (!auth) {
+      setIsAuthenticated(false);
+      return;
+    }
+
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setIsAuthenticated(!!user);
       if (user) {
@@ -130,9 +135,21 @@ export default function MockInterview() {
         formData.append("interview_type", interviewType);
         formData.append("end_interview", "false");
 
+        // 添加 Authorization header
+        const headers: Record<string, string> = {};
+        if (auth?.currentUser) {
+          try {
+            const token = await auth.currentUser.getIdToken();
+            headers.Authorization = `Bearer ${token}`;
+          } catch (error) {
+            console.log("無法獲取用戶 token，將以匿名模式進行面試:", error);
+          }
+        }
+
         const response = await fetch(`${API_BASE_URL}/interview`, {
           method: "POST",
           body: formData,
+          headers: headers,
         });
         const data = await response.json();
 
@@ -208,7 +225,7 @@ export default function MockInterview() {
           setMessages((prev) => [...prev, "You: (analyzing...)"]);
 
           try {
-            const token = await auth.currentUser?.getIdToken();
+            const token = await auth?.currentUser?.getIdToken();
             const response = await fetch(`${API_BASE_URL}/interview`, {
               method: "POST",
               body: formData,
@@ -285,7 +302,7 @@ export default function MockInterview() {
       formData.append("job_position", jobPosition);
       formData.append("end_interview", "true");
 
-      const token = await auth.currentUser?.getIdToken();
+      const token = await auth?.currentUser?.getIdToken();
       const response = await fetch(`${API_BASE_URL}/interview`, {
         method: "POST",
         body: formData,

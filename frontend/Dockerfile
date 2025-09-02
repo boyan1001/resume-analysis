@@ -1,8 +1,12 @@
 # ========= Build & Run =========
-FROM node:24.4.0-alpine
+FROM node:18-alpine
 WORKDIR /app
 
-RUN corepack enable && corepack prepare pnpm@10.15.0 --activate
+# Add DNS configuration to resolve network issues
+RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf && \
+    echo "nameserver 8.8.4.4" >> /etc/resolv.conf
+
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # Install dependencies
 COPY frontend/package.json frontend/pnpm-lock.yaml* frontend/.npmrc* ./
@@ -11,6 +15,7 @@ RUN pnpm install --frozen-lockfile
 # Copy project files and build
 COPY frontend/ .
 
+# Build without formatting (to avoid potential issues)
 RUN pnpm build
 
 EXPOSE 3000

@@ -7,7 +7,7 @@ import {
   onAuthStateChanged,
   User as FirebaseUser,
 } from "firebase/auth";
-import { auth, googleProvider } from "../lib/firebase";
+import { auth, googleProvider, isFirebaseConfigured } from "../lib/firebase";
 import MockInterview from "./component/MockInterview";
 import ResumeAnalysis from "./component/ResumeAnalysis";
 
@@ -17,6 +17,11 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!auth) {
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setLoading(false);
@@ -26,6 +31,11 @@ export default function Home() {
   }, []);
 
   const handleGoogleLogin = async () => {
+    if (!isFirebaseConfigured || !auth || !googleProvider) {
+      alert("Firebase 未正確配置。請聯繫管理員設定 Firebase 配置。");
+      return;
+    }
+
     try {
       setLoading(true);
       const result = await signInWithPopup(auth, googleProvider);
@@ -39,6 +49,10 @@ export default function Home() {
   };
 
   const handleLogout = async () => {
+    if (!auth) {
+      return;
+    }
+
     try {
       await signOut(auth);
       console.log("登出成功");
