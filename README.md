@@ -2,7 +2,8 @@
 ![React](https://img.shields.io/badge/React-20232a.svg?logo=react&logoColor=61DAFB&style=for-the-badge)
 ![Flask](https://img.shields.io/badge/Flask-000.svg?logo=flask&logoColor=white&style=for-the-badge)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white&style=for-the-badge)
-![sqlite](https://img.shields.io/badge/sqlite-07405e.svg?logo=sqlite&logoColor=white&style=for-the-badge)  
+![sqlite](https://img.shields.io/badge/sqlite-07405e.svg?logo=sqlite&logoColor=white&style=for-the-badge)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?logo=firebase&logoColor=white&style=for-the-badge)  
 This is a web application we developed in DevJam (a hackathon hold by GDG). It can analyze resumes and provide feedback by Gemini AI.
 
 ## ✨ Overview  
@@ -46,9 +47,16 @@ To run the program successfully, please check the following:
 - Docker % docker-compose (you can also deploy by Docker)
 
 ## 🐳 Run by Docker  
-First enter your **gemini api key**
+First enter your **gemini api key** and **firebase config**
 ```sh
-echo 'GOOGLE_API_KEY=<your_gemini_api_key>' > .env
+echo 'GOOGLE_API_KEY=<your_gemini_api_key>  
+NEXT_PUBLIC_FIREBASE_API_KEY=<your_firebase_api_key>  
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=<your_firebase_auth_domain>  
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=<your_firebase_id>  
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=<your_firebase_storage_bucket>  
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=<your_firebase_messaging_sender_id> 
+NEXT_PUBLIC_FIREBASE_APP_ID=<your_firebase_app_id> 
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=<your_firebase_measurement_id>' > .env
 ```
 Build and start the containers:  
 ```sh
@@ -59,9 +67,16 @@ Then access the services:
 - **Backend**: http://localhost:3001
 
 ## 💻 Local Development (without Docker)  
-First enter your **gemini api key**
+First enter your **gemini api key** and **firebase config**
 ```sh
-echo 'GOOGLE_API_KEY=<your_gemini_api_key>' > .env
+echo 'GOOGLE_API_KEY=<your_gemini_api_key>  
+NEXT_PUBLIC_FIREBASE_API_KEY=<your_firebase_api_key>  
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=<your_firebase_auth_domain>  
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=<your_firebase_id>  
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=<your_firebase_storage_bucket>  
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=<your_firebase_messaging_sender_id> 
+NEXT_PUBLIC_FIREBASE_APP_ID=<your_firebase_app_id> 
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=<your_firebase_measurement_id>' > .env
 ```
 ### Backend  
 Use **uv** to install dependencies the backend app need: 
