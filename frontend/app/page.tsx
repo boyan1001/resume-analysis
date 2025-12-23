@@ -193,7 +193,7 @@ export default function Home() {
       </div>
 
       {/* 左側色塊 */}
-      <div
+      {/* <div
         style={{
           width: "8cm",
           minHeight: "100vh",
@@ -238,7 +238,7 @@ export default function Home() {
             );
           }}
         ></div>
-      </div>
+      </div> */}
 
       {/* 中間主要內容區域 */}
       <div
@@ -340,7 +340,7 @@ export default function Home() {
       </div>
 
       {/* 右側色塊 */}
-      <div
+      {/* <div
         style={{
           width: "8cm",
           minHeight: "100vh",
@@ -379,7 +379,7 @@ export default function Home() {
             );
           }}
         ></div>
-      </div>
+      </div> */}
     </div>
   );
 }
